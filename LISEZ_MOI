@@ -1,0 +1,25 @@
+
+mini-doc de la version ligne de commande du compilateur JCompiler du cours Compilation (decembre 2016 - HCM)
+
+les deux seuls catalogues utiles sont : 
+
+  - src : source du compilateur avec jflex et cup
+  - tests : contient des fichiers de tests
+
+les fichiers makeAll.sh et run.sh sont pour Unix, ils devraient être faciles à adapter sous Windows.
+
+pour créer le compilateur : 
+
+  - aller dans src
+  - lancer la commande makeAll.sh en tapant : source makeAll.sh
+ 
+pour tester le compilateur : 
+
+  - toujours dans le catalogue src ipour compiler un fichier faire  : 
+
+  source run.sh -gen ../tests/excours5.js
+ 
+  - idem pour avoir la documentation faire : 
+ 
+  source run.sh -help 
+

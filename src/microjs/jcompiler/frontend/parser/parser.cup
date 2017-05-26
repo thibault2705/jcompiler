@@ -16,8 +16,7 @@ terminal SEMICOL, VAR, LET,
          EQ, 
          EQEQ,
          UMINUS, MOD,
-         WHILE,
-         READINT, PRINT, CONS, CAR, CDR;
+         WHILE;
 
 terminal String IDENTIFIER;
 terminal Integer INT;
@@ -55,10 +54,10 @@ statements ::=
     
 statement ::=
   | IDENTIFIER:id EQ expr:e {: RESULT = new Assign(id, e, idxleft, exright); :}
-  | IDENTIFIER:id PLUSASSIGN expr:e {: RESULT = new Assign2(id, "+=", e, idxleft, exright); :}
-  | IDENTIFIER:id MINUSASSIGN expr:e {: RESULT = new Assign2(id, "-=", e, idxleft, exright); :}
-  | IDENTIFIER:id TIMESASSIGN expr:e {: RESULT = new Assign2(id, "*=", e, idxleft, exright); :}
-  | IDENTIFIER:id DIVASSIGN expr:e {: RESULT = new Assign2(id, "/=", e, idxleft, exright); :}
+  | IDENTIFIER:id PLUSASSIGN expr:e {: RESULT = new AssignOp(id, "+=", e, idxleft, exright); :}
+  | IDENTIFIER:id MINUSASSIGN expr:e {: RESULT = new AssignOp(id, "-=", e, idxleft, exright); :}
+  | IDENTIFIER:id TIMESASSIGN expr:e {: RESULT = new AssignOp(id, "*=", e, idxleft, exright); :}
+  | IDENTIFIER:id DIVASSIGN expr:e {: RESULT = new AssignOp(id, "/=", e, idxleft, exright); :}
   | VAR:v IDENTIFIER:var EQ expr:e  {: RESULT = new Var(var, e, vxleft, exright); :}
   | expr:e {: RESULT = new VoidExpr(e, exleft, exright); :}
   | RETURN:r expr:e {: RESULT = new Return(e, rxleft, exright); :}
@@ -100,11 +99,6 @@ expr ::=
   | expr:l TIMES expr:r {: RESULT = new BinOp("*", l, r, lxleft, rxright); :}
   | expr:l DIV expr:r {: RESULT = new BinOp("/", l, r, lxleft, rxright); :}
   | expr:l EQEQ expr:r {: RESULT = new BinOp("==", l, r, lxleft, rxright); :}
-  | READINT:r LPAREN RPAREN {: RESULT = new ReadInt(rxleft, rxright); :}
-  | PRINT:p LPAREN expr:e RPAREN {: RESULT = new Print(e, pxleft, pxright); :}
-  | CONS:c LPAREN expr:e COMMA expr:r RPAREN {: RESULT = new Cons(e, r, cxleft, rxright); :}
-  | CAR:c LPAREN expr:e RPAREN {: RESULT = new Car(e, cxleft, exright); :}
-  | CDR:c LPAREN expr:e RPAREN {: RESULT = new Cdr(e, cxleft, exright); :}
   | LPAREN expr:e RPAREN {: RESULT = e; :}
   ;
   

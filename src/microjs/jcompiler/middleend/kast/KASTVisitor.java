@@ -10,7 +10,7 @@ public interface KASTVisitor {
 	public void visit(KSeq stmt);
 	public void visit(KAssign stmt);
 	public void visit(KReturn stmt);
-	public void visit(KWhile expr);
+	public void visit(KWhile stmt);
 	/* expression visitors */
 	public void visit(KInt expr);
 	public void visit(KTrue expr);
@@ -18,9 +18,4 @@ public interface KASTVisitor {
 	public void visit(KEVar expr);
 	public void visit(KCall expr);
 	public void visit(KClosure expr);
-	public void visit(KReadInt expr);
-	public void visit(KPrint expr);
-	public void visit(KCons expr);
-	public void visit(KCar expr);
-	public void visit(KCdr expr);
 }

@@ -26,10 +26,21 @@ public class While extends Statement {
 
     @Override
 	protected String buildDotGraph(DotGraph graph) {
-		return "";
+		String whileNode = graph.addNode("While");
+		String condNode = cond.buildDotGraph(graph);
+		graph.addEdge(whileNode, condNode, "cond");
+		String bodyNode = cond.buildDotGraph(graph);
+		graph.addEdge(whileNode, bodyNode, "body");
+		return whileNode;
 	}
 
     protected void prettyPrint(StringBuilder buf, int indent_level){
-        //TODO:
+        indent(buf, indent_level);
+    	buf.append("while (");
+    	cond.prettyPrint(buf);
+    	buf.append(") {\n");
+    	Statement.prettyPrintStatements(buf, body, indent_level + 1);
+    	indent(buf, indent_level);
+    	buf.append("}");
     }
 }

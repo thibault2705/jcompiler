@@ -11,7 +11,7 @@ import microjs.jcompiler.backend.bytecode.Unit;
 import microjs.jcompiler.middleend.kast.KASTNode;
 import microjs.jcompiler.middleend.kast.KASTVisitor;
 import microjs.jcompiler.middleend.kast.KAssign;
-import microjs.jcompiler.middleend.kast.KAssign2;
+import microjs.jcompiler.middleend.kast.KAssignOp;
 import microjs.jcompiler.middleend.kast.KCall;
 import microjs.jcompiler.middleend.kast.KClosure;
 import microjs.jcompiler.middleend.kast.KEVar;
@@ -213,29 +213,6 @@ public class Compiler implements KASTVisitor {
 		bytecode.label(contLbl);
 	}
 
-	@Override
-	public void visit (KReadInt expr) {
-		bytecode.push(new Prim(9));
-		bytecode.call(0);
-	}
-
-	@Override
-	public void visit (KPrint expr) {
-		expr.getExpr().accept(this);
-		bytecode.push(new Prim(10));
-		bytecode.call(1);
-	}
-
-
-	@Override
-	public void visit (KCons expr) {
-		expr.getCar().accept(this);
-		expr.getCdr().accept(this);
-		bytecode.push(new Prim(11));
-		bytecode.call(2);
-	}
-
-
 	public class CompileError extends java.lang.Error {
 		private static final long serialVersionUID = -7230596683182208323L;
 
@@ -252,20 +229,6 @@ public class Compiler implements KASTVisitor {
 		
 	}
 
-	@Override
-    public void visit (KCar expr){
-        expr.getExpr().accept(this);
-        bytecode.push(new Prim(13));
-        bytecode.call(1);
-    }
-    
-    @Override
-    public void visit (KCdr expr){
-        expr.getExpr().accept(this);
-        bytecode.push(new Prim(14));
-        bytecode.call(1);
-    }
-	
 	public String genCDeclarations() {
 		StringBuilder buf = new StringBuilder();
 		buf.append("/* Fichier généré automatiquement : ne pas éditer. */\n\n");

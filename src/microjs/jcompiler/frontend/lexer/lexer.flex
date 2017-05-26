@@ -104,17 +104,13 @@ return { return symbol("RETURN", sym.RETURN); }
 
 [/] { return symbol("DIV", sym.DIV); }
 
-[==] { return symbol("EQ", sym.EQ); }
+"+=" { return symbol("PLUSASSIGN", sym.PLUSASSIGN); }
 
-readInt { return symbol("READINT", sym.READINT); }
+"-=" { return symbol("MINUSASSIGN", sym.MINUSASSIGN); }
 
-print { return symbol("PRINT", sym.PRINT); }
+"*=" { return symbol("TIMESASSIGN", sym.TIMESASSIGN); }
 
-cons { return symbol("CONS", sym.CONS); }
-
-car { return symbol("CAR", sym.CAR); }
-
-cdr { return symbol("CDR", sym.CDR); } 
+"/=" { return symbol("DIVASSIGN", sym.DIVASSIGN); }
 
 {Identifier} { return symbol("IDENTIFIER", sym.IDENTIFIER, yytext()); }
 
